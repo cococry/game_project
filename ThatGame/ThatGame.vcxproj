@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{51b7db7b-483b-431a-9097-5e2d19ac4109}</ProjectGuid>
+    <RootNamespace>ThatGame</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)bin-obj\$(Configuration)-$(Platform)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_CTR_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName)\vendor\ASSIMP\include;$(SolutionDir)$(ProjectName)\src;$(SolutionDir)$(ProjectName)\vendor\stb_image;$(SolutionDir)$(ProjectName)\vendor\GLFW\include;$(SolutionDir)$(ProjectName)\vendor\Glad\include;$(SolutionDir)$(ProjectName)\vendor\spdlog\include;$(SolutionDir)$(ProjectName)\vendor\glm</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>glpch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(ProjectName)\vendor\GLFW\lib-vc2022;$(SolutionDir)$(ProjectName)\vendor\ASSIMP\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc143-mtd.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_CTR_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName)\vendor\spdlog\include;$(SolutionDir)$(ProjectName)\vendor\ASSIMP\include;$(SolutionDir)$(ProjectName)\src;$(SolutionDir)$(ProjectName)\vendor\stb_image;$(SolutionDir)$(ProjectName)\vendor\GLFW\include;$(SolutionDir)$(ProjectName)\vendor\Glad\include;$(SolutionDir)$(ProjectName)\vendor\glm</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>glpch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(ProjectName)\vendor\GLFW\lib-vc2022;$(SolutionDir)$(ProjectName)\vendor\ASSIMP\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc143-mtd.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\core\application.cpp" />
+    <ClCompile Include="src\core\logging.cpp" />
+    <ClCompile Include="src\core\window.cpp" />
+    <ClCompile Include="src\entry.cpp" />
+    <ClCompile Include="src\gameplay\game.cpp" />
+    <ClCompile Include="src\gameplay\player.cpp" />
+    <ClCompile Include="src\glpch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\io\camera.cpp" />
+    <ClCompile Include="src\io\joystick.cpp" />
+    <ClCompile Include="src\io\keyboard.cpp" />
+    <ClCompile Include="src\io\mouse.cpp" />
+    <ClCompile Include="src\opengl\gl_buffer.cpp" />
+    <ClCompile Include="src\opengl\light.cpp" />
+    <ClCompile Include="src\opengl\material.cpp" />
+    <ClCompile Include="src\opengl\mesh.cpp" />
+    <ClCompile Include="src\opengl\model.cpp" />
+    <ClCompile Include="src\opengl\renderer.cpp" />
+    <ClCompile Include="src\opengl\shader.cpp" />
+    <ClCompile Include="src\opengl\texture.cpp" />
+    <ClCompile Include="src\opengl\vertex_array.cpp" />
+    <ClCompile Include="vendor\Glad\src\glad.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="vendor\stb_image\stb_image.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\core\application.h" />
+    <ClInclude Include="src\core\asserts.h" />
+    <ClInclude Include="src\core\defines.h" />
+    <ClInclude Include="src\core\logging.h" />
+    <ClInclude Include="src\core\window.h" />
+    <ClInclude Include="src\gameplay\game.h" />
+    <ClInclude Include="src\gameplay\player.h" />
+    <ClInclude Include="src\glpch.h" />
+    <ClInclude Include="src\io\camera.h" />
+    <ClInclude Include="src\io\joystick.h" />
+    <ClInclude Include="src\io\keyboard.h" />
+    <ClInclude Include="src\io\mouse.h" />
+    <ClInclude Include="src\opengl\gl_base_element.h" />
+    <ClInclude Include="src\opengl\gl_buffer.h" />
+    <ClInclude Include="src\opengl\light.h" />
+    <ClInclude Include="src\opengl\material.h" />
+    <ClInclude Include="src\opengl\mesh.h" />
+    <ClInclude Include="src\opengl\model.h" />
+    <ClInclude Include="src\opengl\models\cube.hpp" />
+    <ClInclude Include="src\opengl\models\lamp.hpp" />
+    <ClInclude Include="src\opengl\renderer.h" />
+    <ClInclude Include="src\opengl\render_commands.h" />
+    <ClInclude Include="src\opengl\shader.h" />
+    <ClInclude Include="src\opengl\vertex_array.h" />
+    <ClInclude Include="vendor\stb_image\stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\lamp.frag" />
+    <None Include="assets\shaders\object.frag" />
+    <None Include="assets\shaders\object.vert" />
+    <None Include="src\opengl\texture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\grass.png" />
+    <Image Include="assets\textures\landscape.jpg" />
+    <Image Include="assets\textures\player.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
