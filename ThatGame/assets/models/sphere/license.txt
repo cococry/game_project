@@ -1,0 +1,11 @@
+Model Information:
+* title:	Simple Sphere
+* source:	https://sketchfab.com/3d-models/simple-sphere-8d0e6c4778744f728551ddc98bbabd01
+* author:	manuellamendoza (https://sketchfab.com/manuellamendoza)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Simple Sphere" (https://sketchfab.com/3d-models/simple-sphere-8d0e6c4778744f728551ddc98bbabd01) by manuellamendoza (https://sketchfab.com/manuellamendoza) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

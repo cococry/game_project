@@ -12,18 +12,19 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <vector>
+#include "physics/rigidbody.h"
 
 class model
 {
 public:
-	glm::vec3 position;
+	rigid_body rb;
 	glm::vec3 size;
 
 	model(const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& size = glm::vec3(1.0f), bool noTextures = false);
 
 	virtual void init() {};
 	void load_model(const std::string& filepath);
-	virtual void render(shader& shader);
+	virtual void render(shader& shader, float dt);
 	void clean_up();
 protected:
 	bool p_no_textures;

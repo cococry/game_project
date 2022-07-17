@@ -81,6 +81,12 @@
     <ClCompile Include="src\core\window.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\opengl\models\sphere.hpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\rigidbody.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\stb_image\stb_image.h">
@@ -156,6 +162,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\core\window.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\rigidbody.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

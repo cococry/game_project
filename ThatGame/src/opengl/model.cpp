@@ -2,9 +2,9 @@
 #include "model.h"
 
 model::model(const glm::vec3& position, const glm::vec3& size, bool noTextures)
-	: position(position), size(size), p_no_textures(noTextures)
+	: size(size), p_no_textures(noTextures)
 {
-
+	rb.pos = position;
 }
 
 void model::load_model(const std::string& filepath)
@@ -21,10 +21,13 @@ void model::load_model(const std::string& filepath)
 	process_node(scene->mRootNode, scene);
 }
 
-void model::render(shader& shader)
+void model::render(shader& shader, float dt)
 {
+	rb.update(dt);
+
+
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, position);
+	model = glm::translate(model, rb.pos);
 	model = glm::scale(model, size);
 	shader.set_mat4("u_Model", model);
 

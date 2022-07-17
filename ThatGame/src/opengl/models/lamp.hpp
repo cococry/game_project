@@ -24,10 +24,10 @@ public:
 		LightColor(lightColor), pointLight({k0, k1, k2, pos, ambient, diffuse, specular}),
 		cube(pos, size) {}
 
-	void render(shader& shader) override
+	void render(shader& shader, float dt) override
 	{
 		shader.set_vec3("u_LightColor", LightColor);
 
-		cube::render(shader);
+		cube::render(shader, dt);
 	}
 };

@@ -54,7 +54,11 @@ void application::run()
 				((float)WINDOW_WIDTH / (float)WINDOW_HEIGHT), 0.1f, 1000.0f);
 
 
-			m_model->render(*m_shader);
+			m_model->render(*m_shader, m_delta_time);
+
+
+			m_sphere.render(*m_shader, m_delta_time);
+
 
 			m_shader->set_mat4("u_View", view);
 			m_shader->set_mat4("u_Projection", projection);
@@ -88,9 +92,9 @@ void application::run()
 
 			for (u32 i = 0; i < 4; i++)
 			{
-				m_lamps[i].render(*m_lamp_shader);
+				m_lamps[i].render(*m_lamp_shader, m_delta_time);
 			}
-
+	
 
 			glfwSwapBuffers(m_window->get_glfw_instance());
 			render_command::clear_buffer(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -155,6 +159,9 @@ void application::init()
 		glm::vec4(1.0f)
 	};
 
+	m_sphere = sphere({0.0f, 5.0f, 0.0f}, glm::vec3(0.1f));
+
+	m_sphere.init();
 }
 
 void application::shutdown()

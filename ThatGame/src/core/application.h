@@ -13,6 +13,7 @@
 #include "opengl/mesh.h"
 #include "opengl/light.h"
 #include "opengl/models/lamp.hpp"
+#include "opengl/models/sphere.hpp"
 
 class application {
 public:
@@ -74,6 +75,8 @@ private:
 	spot_light m_spot_light;
 
 	std::shared_ptr<model> m_model;
+
+	sphere m_sphere;
 
 
 	shader* m_shader;
