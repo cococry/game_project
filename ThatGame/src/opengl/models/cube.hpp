@@ -63,5 +63,10 @@ public:
 
 		p_meshes.push_back(mesh(vertex::gen_list(vertices, nVertices), indices));
 	}
+
+    void render(shader& shader, bool set_model_matrix, float dt)
+    {
+        model::render(shader, set_model_matrix, dt);
+    }
 private:
 };

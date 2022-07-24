@@ -114,6 +114,7 @@
     <ClCompile Include="src\opengl\shader.cpp" />
     <ClCompile Include="src\opengl\texture.cpp" />
     <ClCompile Include="src\opengl\vertex_array.cpp" />
+    <ClCompile Include="src\physics\physics_world.cpp" />
     <ClCompile Include="src\physics\rigidbody.cpp" />
     <ClCompile Include="vendor\Glad\src\glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -142,10 +143,12 @@
     <ClInclude Include="src\opengl\model.h" />
     <ClInclude Include="src\opengl\models\cube.hpp" />
     <ClInclude Include="src\opengl\models\lamp.hpp" />
+    <ClInclude Include="src\opengl\models\model_list.h" />
     <ClInclude Include="src\opengl\renderer.h" />
     <ClInclude Include="src\opengl\render_commands.h" />
     <ClInclude Include="src\opengl\shader.h" />
     <ClInclude Include="src\opengl\vertex_array.h" />
+    <ClInclude Include="src\physics\physics_world.h" />
     <ClInclude Include="src\physics\rigidbody.h" />
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>

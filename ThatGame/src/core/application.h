@@ -70,15 +70,11 @@ private:
 			glm::vec3(0.0f,  0.0f, -3.0f)
 	};
 
-	lamp m_lamps[4];
+
 
 	spot_light m_spot_light;
 
-	std::shared_ptr<model> m_model;
-
-	sphere m_sphere;
-
-
+	
 	shader* m_shader;
 
 	shader* m_lamp_shader;
@@ -86,6 +82,13 @@ private:
 	// testing
 
 	bool m_flash_light_on = false;
+
+	sphere_list m_spheres;
+	
+	lamp_list m_lamps;
+
+
+	void throw_sphere();
 };
 
 #define DELTA_TIME application::get_instance()->get_delta_time()

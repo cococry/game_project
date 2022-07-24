@@ -1,10 +1,12 @@
 #include "glpch.h"
 #include "model.h"
 
+
 model::model(const glm::vec3& position, const glm::vec3& size, bool noTextures)
 	: size(size), p_no_textures(noTextures)
 {
 	rb.pos = position;
+
 }
 
 void model::load_model(const std::string& filepath)
@@ -21,15 +23,18 @@ void model::load_model(const std::string& filepath)
 	process_node(scene->mRootNode, scene);
 }
 
-void model::render(shader& shader, float dt)
+void model::render(shader& shader, bool set_model_matrix, float dt)
 {
 	rb.update(dt);
 
+	if (set_model_matrix)
+	{
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, rb.pos) * glm::scale(model, size);
+		shader.bind();
+		shader.set_mat4("u_Model", model);
+	}
 
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, rb.pos);
-	model = glm::scale(model, size);
-	shader.set_mat4("u_Model", model);
 
 	shader.set_float("u_Material.shininess", 0.5f);
 	for (mesh& mesh : p_meshes) {

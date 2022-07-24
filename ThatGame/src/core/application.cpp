@@ -11,6 +11,11 @@
 
 #include "io/mouse.h"
 
+#include "physics\physics_world.h"
+
+#include <stack>
+#include <vector>
+
 application* application::s_instance = nullptr;
 
 application::application(const std::string& title, u32 width, u32 height)
@@ -53,16 +58,29 @@ void application::run()
 			projection = glm::perspective(glm::radians(APP_INSTC->game_instc->game_player->get_camera()->get_fov()),
 				((float)WINDOW_WIDTH / (float)WINDOW_HEIGHT), 0.1f, 1000.0f);
 
-
-			m_model->render(*m_shader, m_delta_time);
-
-
-			m_sphere.render(*m_shader, m_delta_time);
-
-
 			m_shader->set_mat4("u_View", view);
 			m_shader->set_mat4("u_Projection", projection);
 
+			std::stack<int> objects_to_remove;
+			
+			for (u32 i = 0; i < m_spheres.instances.size(); i++)
+			{
+				if (glm::length(game_instc->game_player->get_camera()->get_position() - m_spheres.instances[i].pos) > 250.0f)
+				{
+					objects_to_remove.push(i);
+					continue;
+				}
+			}
+
+			for (u32 i = 0; i < objects_to_remove.size(); i++)
+			{
+				m_spheres.instances.erase(m_spheres.instances.begin() + objects_to_remove.top());
+				objects_to_remove.pop();
+			}
+			if (m_spheres.instances.size())
+			{
+				m_spheres.render(*m_shader, m_delta_time);
+			}
 
 			m_dir_light.direction = glm::vec3(
 				glm::rotate(glm::mat4(1.0f), glm::radians(0.5f), glm::vec3(1.0f, 0.0f, 0.0f)) *
@@ -72,7 +90,7 @@ void application::run()
 
 			for (u32 i = 0; i < 4; i++)
 			{
-				m_lamps[i].pointLight.render(i, *m_shader);
+				m_lamps.lights[i].render(i, *m_shader);
 			}
 
 			m_shader->set_int("u_NPointLights", 4);
@@ -90,10 +108,7 @@ void application::run()
 			m_lamp_shader->set_mat4("u_View", view);
 			m_lamp_shader->set_mat4("u_Projection", projection);
 
-			for (u32 i = 0; i < 4; i++)
-			{
-				m_lamps[i].render(*m_lamp_shader, m_delta_time);
-			}
+			m_lamps.render(*m_lamp_shader, m_delta_time);
 	
 
 			glfwSwapBuffers(m_window->get_glfw_instance());
@@ -104,10 +119,13 @@ void application::run()
 
 			// testing
 
-			if (mouse::button_went_down(GLFW_MOUSE_BUTTON_LEFT)) {
+			if (mouse::button_went_down(GLFW_MOUSE_BUTTON_RIGHT)) {
 				m_flash_light_on = !m_flash_light_on;
 			}
 
+			if (mouse::button_went_down(GLFW_MOUSE_BUTTON_LEFT)) {
+				throw_sphere();
+			}
 		}
 	}
 }
@@ -132,20 +150,25 @@ void application::init()
 	m_shader = new shader("assets/shaders/object.vert", "assets/shaders/object.frag");
 	m_lamp_shader = new shader("assets/shaders/object.vert", "assets/shaders/lamp.frag");
 
-	m_model = std::make_shared<model>(glm::vec3(0.0f, -1.0f, -5.0f), glm::vec3(0.05), true);
-	m_model->load_model("assets/models/island/scene.gltf");
 
-	for (u32 i = 0; i < 4; i++) {
-		m_lamps[i] = lamp(
-			glm::vec3(1.0f),
-			glm::vec4(0.05f, 0.05f, 0.05f, 1.0f),
-			glm::vec4(0.8f, 0.8f, 0.8f, 1.0f),
-			glm::vec4(1.0f),
+	glm::vec4 ambinet = glm::vec4(0.05f, 0.05f, 0.05f, 1.0f);
+	glm::vec4 diffuse = glm::vec4(0.8f, 0.8f, 0.8f, 1.0f);
+	glm::vec4 specular = glm::vec4(1.0f);
+
+	float k0 = 1.0f;
+	float k1 = 0.09f;
+	float k2 = 0.032f;
+
+
+
+	for (u32 i = 0; i < 4; i++)
+	{
+		m_lamps.lights.push_back({
+			k0, k1, k2,
 			m_point_light_positions[i],
-			glm::vec3(0.25f),
-			1.0f, 0.07f, 0.032f);
-
-		m_lamps[i].init();
+			ambinet, diffuse,
+			specular
+			});
 	}
 
 	m_spot_light = {
@@ -159,9 +182,13 @@ void application::init()
 		glm::vec4(1.0f)
 	};
 
-	m_sphere = sphere({0.0f, 5.0f, 0.0f}, glm::vec3(0.1f));
+	m_spheres.init();
 
-	m_sphere.init();
+	m_spheres.set_scale(glm::vec3(0.025f));
+
+
+	m_lamps.init();
+
 }
 
 void application::shutdown()
@@ -170,4 +197,13 @@ void application::shutdown()
 
 	delete m_shader;
 	delete m_lamp_shader;
+}
+
+void application::throw_sphere()
+{
+	rigid_body rb(1.0f, game_instc->game_player->get_camera()->get_position());
+	
+	rb.apply_impulse(game_instc->game_player->get_camera()->get_front(), 1000.0f, m_delta_time);
+	rb.apply_acceleration(physics_world::gravity_vector);
+	m_spheres.instances.push_back(rb);
 }

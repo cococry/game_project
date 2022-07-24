@@ -24,7 +24,7 @@ public:
 
 	virtual void init() {};
 	void load_model(const std::string& filepath);
-	virtual void render(shader& shader, float dt);
+	virtual void render(shader& shader, bool set_model_matrix, float dt);
 	void clean_up();
 protected:
 	bool p_no_textures;
